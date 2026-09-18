@@ -15,7 +15,7 @@ import api.Payload.user;
 
 public class userendpoints {
 
-	 public static     Response createuser(user Payload ){
+	 public static     Response posteuser(user Payload ){
 		
 		 System.out.println("Payload: " + Payload);
 
@@ -48,7 +48,7 @@ public class userendpoints {
 		
 		
 	 }
-	 public static   Response updateuser(String username,user Playload){
+	 public static   Response putuser(String username,user Playload){
 			
 		 Response response=given()
 			
@@ -64,6 +64,20 @@ public class userendpoints {
 		
 		
 	 }
+	 
+	 public static Response patchuser(String username, user playload) {
+			
+		 Response response=given()
+			
+		.contentType(ContentType.JSON)
+		.accept(ContentType.JSON)
+		.body( playload)
+		.pathParam("username", username)
+		.when()
+		.put(Routes.patch_user);
+		return response;
+		 
+	 }
 	 public static  Response deleteuser(String username){
 			
 		 Response response=given()
@@ -78,4 +92,5 @@ public class userendpoints {
 		
 		
 	 }
+	
 }

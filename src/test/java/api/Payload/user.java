@@ -15,9 +15,7 @@ public int getId() {
 	return id;
 }
 
-public void setId(int id) {
-	this.id = id;
-}
+
 
 public String getUsername() {
 	return username;
@@ -73,5 +71,12 @@ public int getUserStatus() {
 
 public void setUserStatus(int userStatus) {
 	this.userStatus = userStatus;
+}
+
+
+
+public static void setId(int hashCode) {
+	// TODO Auto-generated method stub
+	
 }}
 

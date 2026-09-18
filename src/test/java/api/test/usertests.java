@@ -26,7 +26,8 @@ public class usertests {
 		faker = new Faker();
 	 USER= new user();
 		
-		 USER.setId(faker.idNumber().hashCode());
+		// USER.setId(faker.idNumber().hashCode());
+	     user.setId(faker.idNumber().hashCode());
 		 USER.setUsername(faker.name().username());
 		 USER.setFirstName(faker.name().firstName());
 		 USER.setLastName(faker.name().lastName());
@@ -51,7 +52,7 @@ public class usertests {
 	@Test(priority=1)
 	public void testpostuser() {
 	    
-		Response response = userendpoints.createuser(USER);
+		Response response = userendpoints.posteuser(USER);
 		 response.then().log().all();
 	    System.out.println("Status Code: " + response.getStatusCode());
 	    System.out.println("Response: " + response.asPrettyString());
@@ -64,7 +65,8 @@ public class usertests {
 		Response response = userendpoints.getuser(this.USER.getUsername());
 		response.then().log().all();
 		  Assert.assertEquals(response.getStatusCode(), 200);
-	}
+	} 
+
 	@Test(priority=3)
 	public void testupdateuserbynmae() {
 		
@@ -73,14 +75,29 @@ public class usertests {
 		 USER.setLastName(faker.name().lastName());
 		 USER.setEmail(faker.internet().safeEmailAddress());
 		//
-		Response response = userendpoints.updateuser(this.USER.getUsername(),USER);
+		Response response = userendpoints.putuser(this.USER.getUsername(),USER);
 		response.then().log().all();
 		  Assert.assertEquals(response.getStatusCode(), 200);
 		  Response responseafterupdate = userendpoints.getuser(this.USER.getUsername());
 			response.then().log().all();
 			  Assert.assertEquals(response.getStatusCode(), 200);
 	}
+	
 	@Test(priority=4)
+	public void testpatchuserbyname() {
+		 USER.setFirstName(faker.name().firstName());
+		 
+		 Response response = userendpoints.patchuser(this.USER.getUsername(),USER);
+		
+			response.then().log().all();
+			  Assert.assertEquals(response.getStatusCode(), 200);
+			  Response responseafterspecificfieldupdate = userendpoints.getuser(this.USER.getUsername());
+			System.out.println( response.body());
+				response.then().log().all();
+		
+	}
+	
+	@Test(priority=5)
 	public void testdeleteuserrbynmae() {
 		Response response = userendpoints.deleteuser(this.USER.getUsername());
 		
